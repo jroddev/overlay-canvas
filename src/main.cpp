@@ -46,6 +46,10 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
         auto* state = static_cast<State *>(glfwGetWindowUserPointer(window));
         state->drawing = false;
     }
+    else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
+        auto* state = static_cast<State *>(glfwGetWindowUserPointer(window));
+        state->lines.clear();
+    }
 }
 
 void mousePositionCallback(GLFWwindow* window, double xpos, double ypos) {
@@ -72,7 +76,7 @@ int main() {
     auto context = Draw::OpenGL_GLFW_Context{
         OpenGLWindow::Props{
             .title{"window"},
-            .size{600, 400},
+            .size{1024, 768},
             .preCreateWindowHook = setupWindowHints
         }
     };
