@@ -16,8 +16,7 @@ FetchContent_MakeAvailable(express-draw-opengl-glfw)
 
 add_executable(overlay_canvas
         src/main.cpp)
-target_link_libraries(overlay_canvas
-        express-draw-opengl-glfw)
+target_link_libraries(overlay_canvas express-draw-opengl-glfw)
 
 
 configure_file(assets/fonts/Arial.ttf assets/fonts/Arial.ttf COPYONLY)
