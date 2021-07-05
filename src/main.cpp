@@ -6,11 +6,34 @@
 #include "express-draw/Camera.h"
 #include "express-draw/CameraTypes.h"
 
+
+void drawBorder(Draw::OpenGL_GLFW_Context& context) {
+    Draw::drawWireframe(context, Draw::Quad{
+            .transform =Draw::Transform2D::from(
+                    0.F,0.0F,
+                    0.F,
+                    context.openglWindow->width-2.F, context.openglWindow->height-2.0F),
+            .color{1.F, 0.F, 0.F, 0.8F},
+            .pivotPoint=Draw::PIVOT_POINT::CENTER
+    });
+
+    Draw::drawWireframe(context, Draw::Quad{
+            .transform =Draw::Transform2D::from(
+                    0.F,0.F,
+                    0.F,
+                    context.openglWindow->width-22.F, context.openglWindow->height-22.0F),
+            .color{0.5F, 0.F, 0.F, 0.4F},
+            .pivotPoint=Draw::PIVOT_POINT::CENTER
+    });
+}
+
+
 int main() {
 
     auto setupWindowHints = [](){
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE); //see-through window
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE); // always on top window
+//        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
     };
 
     auto context = Draw::OpenGL_GLFW_Context{
@@ -23,9 +46,8 @@ int main() {
     context.clearColor = glm::vec4(0.F, 0.F, 0.F, 0.F);
 
     context.addDirectoryToFileHashes("assets/");
-    static const auto pixelsPerMeter = 10.F;
     const auto camera = Draw::OrthographicSceneCamera{
-            .zoom=1.F/pixelsPerMeter
+            .zoom=1.F
     };
     const auto uiCamera = Draw::OrthographicSceneCamera{
             .position = {300, -200},
@@ -41,24 +63,7 @@ int main() {
             .up = Draw::UP_AXIS::NEGATIVE_Y
         });
 
-        Draw::draw(context, Draw::Quad{
-                .transform =Draw::Transform2D::from(
-                        -15.F, -15.F,
-                        0.F,
-                        10.F, 1.F),
-                .color{1.F, 0.F, 0.F, 1.F},
-                .pivotPoint=Draw::PIVOT_POINT::CENTER
-        });
-
-        Draw::draw(context, Draw::Quad{
-                .transform =Draw::Transform2D::from(
-                        -15.F, -15.F,
-                        0.F,
-                        1.F, 10.F),
-                .color{0.F, 1.F, 0.F, 1.F},
-                .pivotPoint=Draw::PIVOT_POINT::CENTER
-        });
-
+        drawBorder(context);
 
         Draw::endFrame(context);
     }
