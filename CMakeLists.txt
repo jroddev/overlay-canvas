@@ -15,7 +15,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(express-draw-opengl-glfw)
 
 add_executable(overlay_canvas
-        src/main.cpp)
+        src/main.cpp
+        src/State.h
+        src/OverlayInputHandler.h
+        src/OverlayInputHandler.cpp)
 target_link_libraries(overlay_canvas express-draw-opengl-glfw)
 
 
